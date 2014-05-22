@@ -31,6 +31,13 @@ module Unidata
       SelectList.new(@session.select_list list_number)
     end
 
+    def select_where(filename, condition="", list_number=0)
+      command = "SELECT #{filename} TO #{list_number}"
+      command << " #{condition}" unless condition.empty?
+      @session.command(command).exec
+      SelectList.new(@session.select_list list_number)
+    end
+    
     def exists?(filename, record_id)
       open_file(filename) do |file|
         begin
