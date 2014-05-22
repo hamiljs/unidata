@@ -94,7 +94,7 @@ module Unidata
 
       def find_by_condition(name, value)
         field_number = "F#{fields[name.to_sym].index.first}"
-        connection.select(filename, "#{field_number} #{value}").map do |id|
+        connection.select_where(filename, "where #{field_number} #{value}").map do |id|
           find(id)
         end
       end
