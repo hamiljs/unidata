@@ -85,6 +85,13 @@ module Unidata
         end
       end
 
+      def find_like(name, value)
+        field_number = "F#{fields[name.to_sym].index.first}"
+        connection.select(filename, "#{field_number} LIKE \"#{value}\"").map do |id|
+          find(id)
+        end
+      end
+
       def delete(id)
         connection.delete_record(filename, id)
       end
